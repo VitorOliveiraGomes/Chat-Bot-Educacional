@@ -45,24 +45,34 @@ A interface web é responsiva e utiliza um layout limpo com balões de conversa:
 ---
 
 ## ⚙️ Como Executar Localmente
-```bash
-# 1. Clone o repositório
-git clone https://github.com/VitorOliveiraGomes/Chat-Bot-Educacional.git
-cd Chat-Bot-Educacional
+    ```bash
+    # 1. Clone o repositório
+    git clone https://github.com/VitorOliveiraGomes/Chat-Bot-Educacional.git
+    cd Chat-Bot-Educacional
 
-# 2. Crie um ambiente virtual
-python -m venv venv
-# Ative o ambiente (use o comando de acordo com seu sistema):
-source venv/bin/activate        # Linux/macOS
-venv\Scripts\activate           # Windows
+    # 2. Crie um ambiente virtual
+    python -m venv venv
+    # Ative o ambiente (use o comando de acordo com seu sistema):
+    source venv/bin/activate        # Linux/macOS
+    venv\Scripts\activate           # Windows
 
-# 3. Instale as dependências
-pip install -r requirements.txt
+    # 3. Instale as dependências
+    pip install -r requirements.txt
 
-# 4. Crie um arquivo .env com a chave da API do Together
-# Exemplo do conteúdo:
-# TOGETHER_API_KEY=sua_chave_aqui
+    # 4. Crie um arquivo .env com a chave da API do Together
+    # Exemplo do conteúdo:
+    # TOGETHER_API_KEY=sua_chave_aqui
 
-# 5. Execute o servidor
-python TesteServidorFlask.py
+    # 5. Execute o servidor
+    python TesteServidorFlask.py
+---
+## Licença
 
+Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+---
+
+## Contato
+
+Vitor Oliveira  
+GitHub: [https://github.com/VitorOliveiraGomes](https://github.com/VitorOliveiraGomes)
