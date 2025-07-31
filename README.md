@@ -33,12 +33,36 @@ A interface web é responsiva e utiliza um layout limpo com balões de conversa:
 
 ## 📁 Estrutura do Projeto
 
-```bash
-/
-├── TesteServidorFlask.py       # Backend em Flask (servidor principal)
-├── index.html                  # Frontend (interface do chatbot)
-├── requirements.txt            # Dependências do Python
-├── Procfile                    # Configuração para deploy
-├── .env.example                # Exemplo de variáveis de ambiente
-└── templates/
+    ```bash
+    /
+    ├── TesteServidorFlask.py       # Backend em Flask (servidor principal)
+    ├── index.html                  # Frontend (interface do chatbot)
+    ├── requirements.txt            # Dependências do Python
+    ├── Procfile                    # Configuração para deploy
+    ├── .env.example                # Exemplo de variáveis de ambiente
+    └── templates/
     └── index.html              # Template usado pelo Flask
+---
+
+## ⚙️ Como Executar Localmente
+```bash
+# 1. Clone o repositório
+git clone https://github.com/VitorOliveiraGomes/Chat-Bot-Educacional.git
+cd Chat-Bot-Educacional
+
+# 2. Crie um ambiente virtual
+python -m venv venv
+# Ative o ambiente (use o comando de acordo com seu sistema):
+source venv/bin/activate        # Linux/macOS
+venv\Scripts\activate           # Windows
+
+# 3. Instale as dependências
+pip install -r requirements.txt
+
+# 4. Crie um arquivo .env com a chave da API do Together
+# Exemplo do conteúdo:
+# TOGETHER_API_KEY=sua_chave_aqui
+
+# 5. Execute o servidor
+python TesteServidorFlask.py
+
