@@ -35,12 +35,11 @@ A interface web é responsiva e utiliza um layout limpo com balões de conversa:
     ```bash
     /
     ├── TesteServidorFlask.py       # Backend em Flask (servidor principal)
-    ├── index.html                  # Frontend (interface do chatbot)
     ├── requirements.txt            # Dependências do Python
     ├── Procfile                    # Configuração para deploy
     ├── .env.example                # Exemplo de variáveis de ambiente
     └── templates/
-    └── index.html              # Template usado pelo Flask
+    └── index.html                  # Frontend (interface do chatbot)
 ---
 
 ##  Como Executar Localmente
