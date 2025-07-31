@@ -1,25 +1,24 @@
-# 🤖 Chatbot Educacional para TEA
+#  Chatbot Educacional para TEA
 
 Este é um **chatbot educacional desenvolvido com Flask** voltado especialmente para auxiliar pessoas com **Transtorno do Espectro Autista (TEA)**. Ele utiliza o modelo **LLaMA 3.3 70B** via [Together API](https://www.together.ai/) para gerar respostas em linguagem natural.
 
 ---
 
-## 🎯 Objetivo
+##  Objetivo
 
 Oferecer uma ferramenta digital simples, acessível e empática para auxiliar o aprendizado e a comunicação de pessoas com TEA, por meio de uma interface web clara e intuitiva.
 
 ---
 
-## 📸 Preview da Interface
+##  Preview da Interface
 
 A interface web é responsiva e utiliza um layout limpo com balões de conversa:
 
-> ⚠️ Adicione aqui um screenshot caso deseje.
 
 <img width="1914" height="974" alt="image" src="https://github.com/user-attachments/assets/0170bcce-71ad-4b8d-b335-9b74c1ed3217" />
 
 
-## 🚀 Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 - Python 3
 - Flask + Flask-CORS
@@ -44,7 +43,7 @@ A interface web é responsiva e utiliza um layout limpo com balões de conversa:
     └── index.html              # Template usado pelo Flask
 ---
 
-## ⚙️ Como Executar Localmente
+##  Como Executar Localmente
     ```bash
     # 1. Clone o repositório
     git clone https://github.com/VitorOliveiraGomes/Chat-Bot-Educacional.git
