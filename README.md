@@ -34,6 +34,10 @@ Fornecer uma ferramenta digital simples, acessível e empática para apoiar o ap
 - PyPDF2, python-docx, pandas, python-pptx, pytesseract (processamento de arquivos)
 
 ---
+<img width="1902" height="919" alt="image" src="https://github.com/user-attachments/assets/c1e4fed6-c002-4409-a3e6-3d97a1dce092" />
+<img width="1888" height="904" alt="image" src="https://github.com/user-attachments/assets/03d109de-a6b0-48bf-9f74-7122aadc3457" />
+<img width="1893" height="916" alt="image" src="https://github.com/user-attachments/assets/052f9ce9-aa56-4d34-80c9-01bd89a3860f" />
+
 
 ## Estrutura do Projeto
 
