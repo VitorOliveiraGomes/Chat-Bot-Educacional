@@ -1,45 +1,56 @@
-#  Chatbot Educacional para TEA
+# Chatbot Educacional para TEA
 
-Este é um **chatbot educacional desenvolvido com Flask** voltado especialmente para auxiliar pessoas com **Transtorno do Espectro Autista (TEA)**. Ele utiliza o modelo **LLaMA 3.3 70B** via [Together API](https://www.together.ai/) para gerar respostas em linguagem natural.
-
----
-
-##  Objetivo
-
-Oferecer uma ferramenta digital simples, acessível e empática para auxiliar o aprendizado e a comunicação de pessoas com TEA, por meio de uma interface web clara e intuitiva.
+Este é um **chatbot educacional desenvolvido com Flask**, voltado para auxiliar pessoas com **Transtorno do Espectro Autista (TEA)**. Ele utiliza o modelo **LLaMA 3.3 70B**, via [Together API](https://www.together.ai/), para gerar explicações claras e passo a passo com base nos conteúdos fornecidos.
 
 ---
 
-##  Preview da Interface
+## Objetivo
 
-A interface web é responsiva e utiliza um layout limpo com balões de conversa:
+Fornecer uma ferramenta digital simples, acessível e empática para apoiar o aprendizado de pessoas com TEA, por meio de uma interface web intuitiva e responsiva.
 
+---
 
-<img width="1914" height="974" alt="image" src="https://github.com/user-attachments/assets/0170bcce-71ad-4b8d-b335-9b74c1ed3217" />
+## Funcionalidades
 
+- Interface web responsiva com suporte a tema claro/escuro
+- Sistema de **login e registro de usuários**
+- Histórico de conversas por usuário
+- Suporte a **envio de arquivos** (.txt, .pdf, .docx, .xlsx, .pptx, .jpg, .png)
+- IA personalizada com prompt adaptado para pessoas com TEA
+- Armazenamento das mensagens com timestamp no banco de dados
+- Processamento e leitura de arquivos de texto, planilhas, apresentações, imagens e PDFs
 
-##  Tecnologias Utilizadas
+---
+
+## Tecnologias Utilizadas
 
 - Python 3
 - Flask + Flask-CORS
-- Together API (LLaMA 3.3)
-- HTML + CSS + JavaScript puro
-- Gunicorn (para produção)
-- Render ou Heroku (para deploy)
+- Flask-Login + Flask-SQLAlchemy
+- Together API (modelo LLaMA 3.3 70B)
+- HTML, CSS, JavaScript puro
+- Gunicorn (produção)
 - dotenv (variáveis de ambiente)
+- PyPDF2, python-docx, pandas, python-pptx, pytesseract (processamento de arquivos)
 
 ---
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
-    ```bash
-    /
-    ├── TesteServidorFlask.py       # Backend em Flask (servidor principal)
-    ├── requirements.txt            # Dependências do Python
-    ├── Procfile                    # Configuração para deploy
-    ├── .env.example                # Exemplo de variáveis de ambiente
-    └── templates/
-    └── index.html                  # Frontend (interface do chatbot)
+```bash
+/
+├── Serv.py                # Backend principal com rotas Flask
+├── models.py              # Modelos de banco (User, Message, Conversation)
+├── prompt.txt             # Prompt base para IA voltado ao público TEA
+├── requirements.txt       # Dependências do Python
+├── Templates/
+│   ├── index.html         # Interface principal do chatbot
+│   ├── login.html         # Página de login
+│   └── register.html      # Página de registro
+├── static/
+│   └── css/style.css      # Estilos da interface
+└── instance/db.sqlite3    # Banco de dados SQLite (criado automaticamente)
+
 ---
 
 ##  Como Executar Localmente
@@ -57,10 +68,8 @@ A interface web é responsiva e utiliza um layout limpo com balões de conversa:
     # 3. Instale as dependências
     pip install -r requirements.txt
 
-    # 4. Crie um arquivo .env com a chave da API do Together
-    # Exemplo do conteúdo:
-    # TOGETHER_API_KEY=sua_chave_aqui
-
+    # 4. Altero o arquivo .env.example para .env e adicione a chave da API do Together
+    
     # 5. Execute o servidor
     python TesteServidorFlask.py
 ---

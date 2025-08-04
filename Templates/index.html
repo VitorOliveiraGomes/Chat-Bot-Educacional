@@ -1,134 +1,220 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot Educacional</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f9;
-        }
-        h2 {
-            text-align: center;
-        }
-        #chatBox {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        #response {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-height: 300px; /* Permite rolagem se necessário */
-            overflow: auto;
-        }
-        #inputArea {
-            display: flex;
-        }
-        #userInput {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .message {
-            padding: 10px;
-            border-radius: 8px;
-            max-width: 80%;
-        }
-        .user {
-            align-self: flex-end;
-            background-color: #007bff;
-            color: white;
-        }
-        .bot {
-            align-self: flex-start;
-            background-color: #f1f1f1;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat TEA</title>
+  <link rel="icon" href="/Static/imagens/logo.png" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
-<body>
+<body class="tema-claro">
 
-    <h2>Chatbot para TEA</h2>
+  <div class="chat-wrapper">
+    <header>
+      <h1>Chat TEA 🧠</h1>
+      <div class="header-buttons">
+        <button id="tema-btn" onclick="alternarTema()">🌗 Tema</button>
+        <form action="/logout" method="POST" style="display: inline;">
+          <button type="submit" class="logout-btn">🚪 Sair</button>
+        </form>
+      </div>
+      <aside id="historico">
+  <button onclick="novaConversa()">➕ Nova Conversa</button>
+  <ul id="lista-historico"></ul>
+</aside>
+
+    </header>
+
+    <main id="chat-box"></main>
+
+    <footer class="input-area">
+      <input type="text" id="user-input" placeholder="Digite sua dúvida..." />
+      <button onclick="enviarMensagem()">Enviar</button>
+    </footer>
+
+    <form id="upload-form" enctype="multipart/form-data">
+      <div class="file-upload-wrapper">
+        <input type="file" id="file-input" name="file" accept=".txt,.pdf,.docx,.xlsx" hidden />
+        <label for="file-input" class="file-upload-label">📎 Arquivo</label>
+        <span id="file-name">Nenhum arquivo escolhido</span>
+      </div>
+      <button type="submit">Enviar Arquivo</button>
+    </form>
+  </div>
+  
+
+  <script>
+    const temas = ["tema-claro", "tema-escuro"];
+    let indiceTema = 0;
+
+    function alternarTema() {
+      document.body.classList.remove(...temas);
+      indiceTema = (indiceTema + 1) % temas.length;
+      document.body.classList.add(temas[indiceTema]);
+      localStorage.setItem("temaAtual", temas[indiceTema]);
+    }
+
+    async function enviarMensagem() {
+      const input = document.getElementById("user-input");
+      const message = input.value.trim();
+      if (!message) return;
+
+      const chatBox = document.getElementById("chat-box");
+      chatBox.innerHTML += `<div class="mensagem usuario"><strong>Você:</strong> ${message}</div>`;
+
+      const botDiv = document.createElement("div");
+      botDiv.className = "mensagem bot";
+      botDiv.innerHTML = `<em>Digitando...</em>`;
+      chatBox.appendChild(botDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      input.value = "";
+
+      try {
+        const resposta = await fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message })
+        });
+
+        const data = await resposta.json();
+
+        if (data.response) {
+          botDiv.innerHTML = `<strong>Assistente:</strong><br>${data.response}`;
+        } else if (data.error) {
+          botDiv.innerHTML = `<strong>Erro:</strong> ${data.error}`;
+        } else {
+          botDiv.innerHTML = "<em>Assistente: resposta não recebida corretamente.</em>";
+        }
+      } catch (error) {
+        console.error("Erro no fetch:", error);
+        botDiv.innerHTML = "<em>Erro de conexão com o servidor.</em>";
+      }
+
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    document.getElementById("user-input").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        enviarMensagem();
+      }
+    });
+
+    document.getElementById("file-input").addEventListener("change", function () {
+      const fileNameSpan = document.getElementById("file-name");
+      fileNameSpan.textContent = this.files.length ? this.files[0].name : "Nenhum arquivo escolhido";
+    });
+
+    document.getElementById("upload-form").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const fileInput = document.getElementById("file-input");
+      if (!fileInput.files.length) return alert("Escolha um arquivo!");
+
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+
+      const respostaBot = document.createElement("div");
+      respostaBot.className = "mensagem bot";
+      respostaBot.innerHTML = "<strong>IA:</strong> lendo arquivo...";
+      document.getElementById("chat-box").appendChild(respostaBot);
+
+      try {
+        const response = await fetch("/upload", {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await response.json();
+        respostaBot.innerHTML = `<strong>IA:</strong><br>${data.response || "Erro ao processar o arquivo."}`;
+      } catch (error) {
+        console.error("Erro no upload:", error);
+        respostaBot.innerHTML = "<strong>IA:</strong> Erro ao processar o arquivo.";
+      }
+    });
+
+    // Salva tema no navegador
+    window.onload = () => {
+      const temaSalvo = localStorage.getItem("temaAtual");
+      if (temaSalvo && temas.includes(temaSalvo)) {
+        document.body.classList.remove(...temas);
+        document.body.classList.add(temaSalvo);
+        indiceTema = temas.indexOf(temaSalvo);
+      }
+    };
     
-    <div id="chatBox">
-        <div id="response"></div>
-        <div id="inputArea">
-            <input type="text" id="userInput" placeholder="Digite sua dúvida..." autocomplete="off" onkeypress="handleKeyPress(event)" />
-            <button onclick="sendMessage()">Enviar</button>
-        </div>
-    </div>
+let conversaIdAtual = null;
 
-    <script>
-        function sendMessage() {
-            let userMessage = document.getElementById("userInput").value.trim();
+// Criar nova conversa
+async function novaConversa() {
+  const res = await fetch("/nova-conversa", { method: "POST" });
+  const data = await res.json();
+  conversaIdAtual = data.conversa_id;
+  document.getElementById("chat-box").innerHTML = "";
+}
 
-            if (!userMessage) {
-                alert("Por favor, digite uma pergunta!");
-                return;
-            }
+// Carregar histórico de conversas
+async function carregarHistorico() {
+  const res = await fetch("/historico");
+  const historico = await res.json();
+  const lista = document.getElementById("lista-historico");
+  lista.innerHTML = "";
 
-            let chatBox = document.getElementById("response");
+  historico.forEach(c => {
+    const li = document.createElement("li");
+    li.textContent = `${c.title} (${c.created_at})`;
+    li.onclick = () => carregarMensagens(c.id);
+    lista.appendChild(li);
+  });
+}
 
-            // Exibir mensagem do usuário
-            let userDiv = document.createElement("div");
-            userDiv.className = "message user";
-            userDiv.innerText = userMessage;
-            chatBox.appendChild(userDiv);
+// Carregar mensagens da conversa
+async function carregarMensagens(id) {
+  conversaIdAtual = id;
+  const res = await fetch(`/mensagens/${id}`);
+  const mensagens = await res.json();
 
-            // Enviar mensagem para o Flask
-            fetch("https://testesvr.onrender.com/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: userMessage })
-            })
-            .then(response => response.json())
-            .then(data => {
-                let botDiv = document.createElement("div");
-                botDiv.className = "message bot";
-                botDiv.innerText = data.response ? data.response : "Erro ao obter resposta.";
-                chatBox.appendChild(botDiv);
-                chatBox.scrollTop = chatBox.scrollHeight; // Garantir que a rolagem vá para a última mensagem
-            })
-            .catch(error => {
-                console.error("Erro ao enviar a mensagem:", error);
-                let botDiv = document.createElement("div");
-                botDiv.className = "message bot";
-                botDiv.innerText = "⚠️ Erro ao se conectar com o servidor.";
-                chatBox.appendChild(botDiv);
-            });
+  const box = document.getElementById("chat-box");
+  box.innerHTML = "";
+  mensagens.forEach(msg => {
+    box.innerHTML += `
+      <div class="mensagem usuario"><strong>Você:</strong> ${msg.usuario}</div>
+      <div class="mensagem bot"><strong>Assistente:</strong><br>${msg.assistente}</div>
+    `;
+  });
+  box.scrollTop = box.scrollHeight;
+}
 
-            document.getElementById("userInput").value = ''; // Limpar campo de input
-        }
+// Enviar mensagem com conversa ID
+async function enviarMensagem() {
+  const input = document.getElementById("user-input");
+  const message = input.value.trim();
+  if (!message) return;
 
-        function handleKeyPress(event) {
-            if (event.key === "Enter") {
-                sendMessage();
-            }
-        }
-    </script>
+  const chatBox = document.getElementById("chat-box");
+  chatBox.innerHTML += `<div class="mensagem usuario"><strong>Você:</strong> ${message}</div>`;
+  const botDiv = document.createElement("div");
+  botDiv.className = "mensagem bot";
+  botDiv.innerHTML = `<em>Digitando...</em>`;
+  chatBox.appendChild(botDiv);
+  input.value = "";
 
+  const resposta = await fetch("/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message, conversation_id: conversaIdAtual })
+  });
+  const data = await resposta.json();
+  if (data.conversation_id) conversaIdAtual = data.conversation_id;
+  botDiv.innerHTML = `<strong>Assistente:</strong><br>${data.response}`;
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Iniciar ao carregar
+window.onload = () => {
+  carregarHistorico();
+};
+
+  </script>
 </body>
 </html>
