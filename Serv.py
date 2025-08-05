@@ -12,6 +12,8 @@ import docx
 import pandas as pd
 from datetime import datetime
 from models import db, User, Message, Conversation
+from markdown import markdown as md_to_html
+
 
 # Novos imports para PPTX e imagens
 from pptx import Presentation
@@ -91,7 +93,7 @@ def chat():
         )
 
         raw_message = response.choices[0].message.content
-        bot_message = markdown.markdown(raw_message)
+        bot_message = md_to_html(raw_message, extensions=["fenced_code"])
 
         mensagem = Message(
             user_id=current_user.id,
