@@ -57,7 +57,7 @@ Fornecer uma ferramenta digital simples, acessível e empática para apoiar o ap
 
 ---
 
-##  Como Executar Localmente
+Como Executar Localmente
     ```bash
     # 1. Clone o repositório
     git clone https://github.com/VitorOliveiraGomes/Chat-Bot-Educacional.git
@@ -77,13 +77,13 @@ Fornecer uma ferramenta digital simples, acessível e empática para apoiar o ap
     # 5. Execute o servidor
     python Serv.py
 ---
-## Licença
+Licença
 
 Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
 
 ---
 
-## Contato
+Contato
 
 Vitor Oliveira  
 GitHub: [https://github.com/VitorOliveiraGomes](https://github.com/VitorOliveiraGomes)
