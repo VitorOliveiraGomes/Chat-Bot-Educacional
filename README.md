@@ -75,7 +75,7 @@ Fornecer uma ferramenta digital simples, acessível e empática para apoiar o ap
     # 4. Altero o arquivo .env.example para .env e adicione a chave da API do Together
     
     # 5. Execute o servidor
-    python TesteServidorFlask.py
+    python Serv.py
 ---
 ## Licença
 
@@ -87,3 +87,7 @@ Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICE
 
 Vitor Oliveira  
 GitHub: [https://github.com/VitorOliveiraGomes](https://github.com/VitorOliveiraGomes)
+Linkedin: [www.linkedin.com/in/vitor-oliveira-gomes-610670317](www.linkedin.com/in/vitor-oliveira-gomes-610670317)
+Kaian Perez
+GitHub: [https://github.com/kaiiiarchives](https://github.com/kaiiiarchives)
+Linkedin: [https://www.linkedin.com/in/kaian-perez-7803792bb/](https://www.linkedin.com/in/kaian-perez-7803792bb/)
