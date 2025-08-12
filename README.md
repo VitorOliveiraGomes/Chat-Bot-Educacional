@@ -23,51 +23,55 @@ Este é um chatbot web feito com Flask + Together AI, projetado para auxiliar pe
 
 ## Como rodar localmente
 
-**1. Clone o repositório**
+1. **Clone o repositório**
+   ```bash
+   git clone https://github.com/Venti23/Chat-Bot-TEA.git
+   ```
 
-- git clone https://github.com/Venti23/Chat-Bot-TEA.git
+2. **Acesse a pasta do projeto**
+   ```bash
+   cd Chat-Bot-TEA
+   ```
 
-**2. Acesse a pasta do projeto**
+3. **Crie um ambiente virtual (recomendado)**
+   ```bash
+   python -m venv venv
+   ```
 
-- cd Chat-Bot-TEA
+4. **Ative o ambiente virtual**
 
-**3. Crie um ambiente virtual (recomendado)**
+   **No Windows:**
+   ```bash
+   venv\Scripts\activate
+   ```
 
-- python -m venv venv
+   **No Linux/macOS:**
+   ```bash
+   source venv/bin/activate
+   ```
 
-**4. Ative o ambiente virtual**
+5. **Instale as dependências**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-**No Windows:**
+6. **Configuração do `.env`**
+   - Renomeie o arquivo:
+     ```bash
+     mv .env.example .env
+     ```
+   - Abra o `.env` e edite com:
+     - Sua **API Key**: [Obtenha aqui](https://api.together.ai/)
+     - Sua **Secret Key**: gere executando:
+       ```python
+       import secrets
+       print(secrets.token_hex(16))
+       ```
 
-- venv\Scripts\activate
-
-**No Linux/macOS:**
-
-- source venv/bin/activate
-
- **5. Instale as dependências**
- 
-- pip install -r requirements.txt
-
- **7. Alterar o .env**
- 
-- Altere o .env.example para .env 
-
-- Modifique o .env com a sua secret key e sua api key
-
-(Para obter sua api key acesse: https://api.together.ai/)
-
-(Para ober sua secret key rode esse codigo em python:
-
- import secrets
- 
- print(secrets.token_hex(16))
- 
-)
-
-**6. Execute o chatbot**
-
-- python Serv.py
+7. **Execute o chatbot**
+   ```bash
+   python Serv.py
+   ```
 
 ## Licença
 
