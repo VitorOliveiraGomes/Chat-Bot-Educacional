@@ -44,10 +44,10 @@ pip install -r requirements.txt
 # 7. Alterar o .env
 Altere o .env.example para .env 
 Modifique o .env com a sua secret key e sua api key
-# Para obter sua api key acesse: https://api.together.ai/
-# Para ober sua secret key rode esse codigo em python:
-# import secrets
-# print(secrets.token_hex(16))
+ Para obter sua api key acesse: https://api.together.ai/
+ Para ober sua secret key rode esse codigo em python:
+ import secrets
+ print(secrets.token_hex(16))
 
 # 6. Execute o chatbot
 python Serv.py
@@ -57,10 +57,10 @@ python Serv.py
 Este projeto está licenciado sob a [Licença MIT](LICENSE).
 
 ## Contato
-Vitor Oliveira Gomes
-Github:[text](https://github.com/VitorOliveiraGomes)
-Linkedin:[text](www.linkedin.com/in/vitor-oliveira-gomes-610670317)
 
-Kaian Perez
-Github:[text](https://github.com/kaiiiarchives)
-Linkedin:[text](https://www.linkedin.com/in/kaian-perez-7803792bb/)
+**Vitor Oliveira Gomes**  
+[GitHub](https://github.com/VitorOliveiraGomes) | [LinkedIn](https://www.linkedin.com/in/vitor-oliveira-gomes-610670317)
+
+**Kaian Perez**  
+[GitHub](https://github.com/kaiiiarchives) | [LinkedIn](https://www.linkedin.com/in/kaian-perez-7803792bb/)
+
