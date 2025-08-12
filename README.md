@@ -21,6 +21,15 @@ Este é um chatbot web feito com Flask + Together AI, projetado para auxiliar pe
 - OCR com Tesseract
 - Deploy compatível com Heroku
 
+<img width="1889" height="910" alt="image" src="https://github.com/user-attachments/assets/4a19b900-7b72-448f-b7f7-0dcfc652eb66" />
+
+<img width="1889" height="901" alt="image" src="https://github.com/user-attachments/assets/11e1da11-4f9c-4498-a801-d55ddca5ad28" />
+
+<img width="1889" height="908" alt="image" src="https://github.com/user-attachments/assets/4a90ae52-e9fa-4630-941d-002560edcde5" />
+
+<img width="1879" height="893" alt="image" src="https://github.com/user-attachments/assets/af99a8c3-00c9-4d3c-8e1b-c10871caedfc" />
+
+
 ## Como rodar localmente
 
 1. **Clone o repositório**
