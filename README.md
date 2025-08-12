@@ -25,45 +25,46 @@ Este é um chatbot web feito com Flask + Together AI, projetado para auxiliar pe
 
 **1. Clone o repositório**
 
-git clone https://github.com/Venti23/Chat-Bot-TEA.git
+- git clone https://github.com/Venti23/Chat-Bot-TEA.git
 
 **2. Acesse a pasta do projeto**
 
-cd Chat-Bot-TEA
+- cd Chat-Bot-TEA
 
 **3. Crie um ambiente virtual (recomendado)**
 
-python -m venv venv
+- python -m venv venv
 
 **4. Ative o ambiente virtual**
 
 **No Windows:**
 
-venv\Scripts\activate
+- venv\Scripts\activate
 
 **No Linux/macOS:**
 
-source venv/bin/activate
+- source venv/bin/activate
 
  **5. Instale as dependências**
  
-pip install -r requirements.txt
+- pip install -r requirements.txt
 
  **7. Alterar o .env**
  
-Altere o .env.example para .env 
+- Altere o .env.example para .env 
 
-Modifique o .env com a sua secret key e sua api key
+- Modifique o .env com a sua secret key e sua api key
 
-Para obter sua api key acesse: https://api.together.ai/
+(Para obter sua api key acesse: https://api.together.ai/)
 
-Para ober sua secret key rode esse codigo em python:
+(Para ober sua secret key rode esse codigo em python:
  import secrets
  print(secrets.token_hex(16))
+)
 
 **6. Execute o chatbot**
 
-python Serv.py
+- python Serv.py
 
 ## Licença
 
