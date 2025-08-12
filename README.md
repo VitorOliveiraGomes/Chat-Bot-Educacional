@@ -23,7 +23,6 @@ Este é um chatbot web feito com Flask + Together AI, projetado para auxiliar pe
 
 ## Como rodar localmente
 
-```bash
 # 1. Clone o repositório
 git clone https://github.com/Venti23/Chat-Bot-TEA.git
 
@@ -52,3 +51,16 @@ Modifique o .env com a sua secret key e sua api key
 
 # 6. Execute o chatbot
 python Serv.py
+
+## Licença
+
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
+
+## Contato
+Vitor Oliveira Gomes
+Github:[text](https://github.com/VitorOliveiraGomes)
+Linkedin:[text](www.linkedin.com/in/vitor-oliveira-gomes-610670317)
+
+Kaian Perez
+Github:[text](https://github.com/kaiiiarchives)
+Linkedin:[text](https://www.linkedin.com/in/kaian-perez-7803792bb/)
