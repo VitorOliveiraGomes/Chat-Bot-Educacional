@@ -58,8 +58,11 @@ Este é um chatbot web feito com Flask + Together AI, projetado para auxiliar pe
 (Para obter sua api key acesse: https://api.together.ai/)
 
 (Para ober sua secret key rode esse codigo em python:
+
  import secrets
+ 
  print(secrets.token_hex(16))
+ 
 )
 
 **6. Execute o chatbot**
