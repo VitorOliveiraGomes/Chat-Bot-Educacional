@@ -24,6 +24,7 @@ Este é um chatbot web feito com Flask + Together AI, projetado para auxiliar pe
 ## Como rodar localmente
 
 **1. Clone o repositório**
+
 git clone https://github.com/Venti23/Chat-Bot-TEA.git
 
 **2. Acesse a pasta do projeto**
@@ -33,9 +34,12 @@ cd Chat-Bot-TEA
 python -m venv venv
 
 **4. Ative o ambiente virtual**
+
 **No Windows:**
+
 venv\Scripts\activate
 **No Linux/macOS:**
+
 source venv/bin/activate
 
  **5. Instale as dependências**
