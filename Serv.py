@@ -20,11 +20,35 @@ from pptx import Presentation
 from PIL import Image
 import pytesseract
 
+def build_conversation_history(conversation_id, user_message):
+    system_prompt = (
+        "Você é um assistente educacional paciente, amigável e acolhedor. "
+        "Seu objetivo é ajudar pessoas no espectro autista a aprender com calma e sem julgamentos. "
+        "Use uma linguagem simples, clara e objetiva. "
+        "Seja gentil e respeite o ritmo da conversa. "
+        "Não explique termos óbvios como 'obrigado' ou 'tudo bem', a menos que a pessoa peça. "
+        "Responda como um humano que entende emoções e interage de forma empática. "
+        "Mantenha a conversa fluida, sem ser robótico. "
+        "Evite repetir instruções, e sempre responda com atenção ao que a pessoa diz."
+    )
+
+    messages = [{"role": "system", "content": system_prompt}]
+    historico = Message.query.filter_by(conversation_id=conversation_id).order_by(Message.timestamp.asc()).all()
+    for m in historico:
+        messages.append({"role": "user", "content": m.user_message})
+        messages.append({"role": "assistant", "content": m.bot_response})
+    messages.append({"role": "user", "content": user_message})
+    return messages
+
+
+
 # Configuração do Tesseract no Windows (ajuste o caminho se necessário)
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 # Carregar variáveis de ambiente
 load_dotenv()
+
+
 
 # Caminho base do projeto
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -54,9 +78,6 @@ def load_user(user_id):
 # Cliente da IA
 client = Together(api_key=os.getenv("TOGETHER_API_KEY"))
 
-# Lê o conteúdo do prompt do arquivo externo
-with open("prompt.txt", "r", encoding="utf-8") as file:
-    PROMPT_TEA = file.read()
 
 
 @app.route("/")
@@ -76,7 +97,7 @@ def chat():
             return jsonify({"error": "Mensagem vazia"}), 400
 
         if conversation_id:
-            conversation = Conversation.query.get(conversation_id)
+            conversation = db.session.get(Conversation, conversation_id)
             if not conversation or conversation.user_id != current_user.id:
                 return jsonify({"error": "Conversa inválida"}), 403
         else:
@@ -85,12 +106,9 @@ def chat():
             db.session.commit()
 
         response = client.chat.completions.create(
-            model="meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
-            messages=[{
-                "role": "user",
-                "content": PROMPT_TEA + user_message
-            }]
-        )
+    model="meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+    messages=build_conversation_history(conversation.id, user_message)
+)
 
         raw_message = response.choices[0].message.content
         bot_message = md_to_html(raw_message, extensions=["fenced_code"])
@@ -107,7 +125,10 @@ def chat():
         return jsonify({"response": bot_message, "conversation_id": conversation.id})
 
     except Exception as e:
+        print("Erro no /chat:", e)
         return jsonify({"error": str(e)}), 500
+
+
 
 @app.route("/upload", methods=["POST"])
 @login_required
@@ -141,12 +162,14 @@ def upload():
             return jsonify({"error": "Tipo de arquivo não suportado."}), 400
 
         response = client.chat.completions.create(
-            model="meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
-            messages=[{
-                "role": "user",
-                "content": PROMPT_TEA + content
-            }]
-        )
+    model="meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+    messages=[
+        {"role": "system", "content": "Você é um assistente educacional paciente, acolhedor e humano, que conversa de forma natural e amigável. "},
+        {"role": "user", "content": "Obrigado, já me ajudou."}
+    ],
+)
+        print(response.choice[0].message.content)
+
 
         raw_message = response.choices[0].message.content
         bot_message = markdown.markdown(raw_message)
@@ -238,7 +261,7 @@ def mensagens(conversa_id):
     return jsonify([
         {
             "usuario": msg.user_message,
-            "assistente": msg.bot_response,
+            "assistente": md_to_html(msg.bot_response, extensions=["fenced_code"]),
             "timestamp": msg.timestamp.strftime("%H:%M")
         } for msg in mensagens
     ])

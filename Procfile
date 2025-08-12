@@ -1,1 +1,1 @@
-web: gunicorn TesteServidorFlask:app
+web: gunicorn Serv:app
